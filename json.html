@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JSON</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+                <h1 class="text-center">JSON解析</h1>
+        </div>
+        <div class="col-md-12">
+            
+            <h2>PowerShell: ConvertTo-Json  ConvertFrom-Json</h2>
+            <p><strong>ConvertTo-Json:</strong>Converts an object to a JSON-formatted string.</p>
+            <p><strong>ConvertFrom-Json:</strong>Converts a JSON-formatted string to an custom object.</p>
+            <p>请看下面的例子。
+                <pre>
+(Get-UICulture).Calendar |ConvertTo-Json
+$t=Invoke-WebRequest -uri http://wthrcdn.etouch.cn/weather_mini?city=北京 |ConvertTo-Json
+                </pre>
+            </p>
+        </div>
+        <div class="col-md-12">
+            <h2>JavaScript: JSON 对象</h2>
+            <p><strong>JSON.parse:</strong>Converts a JSON-formatted string to a JavaScript object.</p>
+            <p><strong>JSON.stringify:</strong>Converts JavaScript object to a JSON-formatted string.</p>
+            <p>
+                <pre>
+var strJson = '{"data":{"yesterday":{"date":"31日星期二","high":"高温 16℃","fx":"南风","low":"低温 4℃","fl":"<![CDATA[<3级]]>","type":"多云"},"city":"北京","aqi":"70","forecast":[{"date":"1日星期三","high":"高温 17℃","fengli":"<![CDATA[<3级]]>","low":"低温 6℃","fengxiang":"南风","type":"晴"},{"date":"2日星期四","high":"高温 17℃","fengli":"<![CDATA[<3级]]>","low":"低温 3℃","fengxiang":"东北风","type":"阴"},{"date":"3日星期五","high":"高温 14℃","fengli":"<![CDATA[<3级]]>","low":"低温 2℃","fengxiang":"北风","type":"晴"},{"date":"4日星期六","high":"高温 15℃","fengli":"<![CDATA[<3级]]>","low":"低温 3℃","fengxiang":"西南风","type":"晴"},{"date":"5日星期天","high":"高温 16℃","fengli":"<![CDATA[<3级]]>","low":"低温 5℃","fengxiang":"南风","type":"多云"}],"ganmao":"将有一次强降温过程，极易发生感冒，请特别注意增加衣服保暖防寒。","wendu":"19"},"status":1000,"desc":"OK"}';
+var obj = JSON.parse(strJson);  //将字符串生成JavaScript对象
+        
+console.log('北京 ' + obj.data.forecast[0].date + '的温度是 ' + obj.data.forecast[0].high + '.')
+                </pre>
+            </p>
+            <script>
+                var strJson = '{"data":{"yesterday":{"date":"31日星期二","high":"高温 16℃","fx":"南风","low":"低温 4℃","fl":"<![CDATA[<3级]]>","type":"多云"},"city":"北京","aqi":"70","forecast":[{"date":"1日星期三","high":"高温 17℃","fengli":"<![CDATA[<3级]]>","low":"低温 6℃","fengxiang":"南风","type":"晴"},{"date":"2日星期四","high":"高温 17℃","fengli":"<![CDATA[<3级]]>","low":"低温 3℃","fengxiang":"东北风","type":"阴"},{"date":"3日星期五","high":"高温 14℃","fengli":"<![CDATA[<3级]]>","low":"低温 2℃","fengxiang":"北风","type":"晴"},{"date":"4日星期六","high":"高温 15℃","fengli":"<![CDATA[<3级]]>","low":"低温 3℃","fengxiang":"西南风","type":"晴"},{"date":"5日星期天","high":"高温 16℃","fengli":"<![CDATA[<3级]]>","low":"低温 5℃","fengxiang":"南风","type":"多云"}],"ganmao":"将有一次强降温过程，极易发生感冒，请特别注意增加衣服保暖防寒。","wendu":"19"},"status":1000,"desc":"OK"}'; 
+                var obj = JSON.parse(strJson);  //将字符串生成JavaScript对象
+            
+                console.log('北京 ' + obj['data']['forecast'][0].date + '的温度是 ' + obj.data.forecast[0].high + '.')
+            </script>
+        </div>
+        <div class="col-md-12">
+          <h2>Python: json 模块</h2>
+          <p>
+            Json 模块的 loads 方法可以将 json 转换成 Python 字典数据。
+            <pre>
+#JSON,将json 转换成 Python 字典
+import json
+import requests
+
+url = 'http://wthrcdn.etouch.cn/weather_mini?city=%E5%8C%97%E4%BA%AC'
+resp = requests.get(url)
+
+weather = json.loads(resp.text)
+wh = weather['data']['forecast'][0]
+print("%s%s的最高气温是 %s,最低气温是%s." % (weather['data']['city'], wh['date'][0:2],wh['high'].split(" ")[1], wh['low'].split(" ")[1]))
+
+            </pre>
+          </p>
+        </div>
+        <div class="col-md-14">
+          <p>
+            <h2>总结</h2>
+            <p>PowerShell 由JSON成的.net对象，访问其中的数据只支持点号访问, <kbd>$v = obj.property</kbd>。</p>
+            <p>JavaScript 由JSON成的JavaScript对象，访问其中的数据既支持点号又支持中括号，<kbd>var value = obj.property; var v = obj['property']</kbd>  </p>
+            <p>Python 由JSON成的dict数据类型的对象，访问其中的数据只支持中括号访问, <kbd>v = obj['property']</kbd>，因为返回的是dict数据类型。</p>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
