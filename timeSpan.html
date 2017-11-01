@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>主页</title>
+    <title>计算时间差</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/lzx.css" type="text/css" rel="stylesheet" />
@@ -16,20 +16,82 @@
     <![endif]-->
   </head>
   <body>
-    <table>
-        <tr>
-            <th>序号</th>
-            <th>内容</th>
-            <th>说明</th>
-        </tr>
-        <tr>
-            <th>1</th>
-            <th><a href="timespan.html">计算时间差</a></th>
-            <th>计算时间差</th>
-        </tr>
-    </table>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            <h1>计算时间差</h1>
+            <h2>PowerShell: New-TimeSpan</h2>
+            <p>创建一个TimeSpan对象，表示当前时间到'2100-12-24 18:30:00'之前的时间差:
+              <code>
+                  $ts = New-TimeSpan -End '2100-12-24 18:30:30'
+              </code>
+            </p>
+            <p>通过两个时间相减，得到一个TimeSpan时间差对象:<code>$ts = [datetime]'2100-12-24 18:30:30' - (Get-Date)</code></p>
+            <p>时间差是一个对象有以下属性：
+              <pre>
+                
+   TypeName:System.TimeSpan
+   
+   Name              MemberType Definition
+   ----              ---------- ----------
+   Add               Method     timespan Add(timespan ts)
+   CompareTo         Method     int CompareTo(System.Object value), int CompareTo(timespan value), int IComparable.Com
+   Duration          Method     timespan Duration()
+   Equals            Method     bool Equals(System.Object value), bool Equals(timespan obj), bool IEquatable[timespan]
+   GetHashCode       Method     int GetHashCode()
+   GetType           Method     type GetType()
+   Negate            Method     timespan Negate()
+   Subtract          Method     timespan Subtract(timespan ts)
+   ToString          Method     string ToString(), string ToString(string format), string ToString(string format, Syst
+   Days              Property   int Days {get;}
+   Hours             Property   int Hours {get;}
+   Milliseconds      Property   int Milliseconds {get;}
+   Minutes           Property   int Minutes {get;}
+   Seconds           Property   int Seconds {get;}
+   Ticks             Property   long Ticks {get;}
+   TotalDays         Property   double TotalDays {get;}
+   TotalHours        Property   double TotalHours {get;}
+   TotalMilliseconds Property   double TotalMilliseconds {get;}
+   TotalMinutes      Property   double TotalMinutes {get;}
+   TotalSeconds      Property   double TotalSeconds {get;}
+   
+              </pre>
+            </p>
+        </div>
+        <div class="col-md-12">
+          <h2>JavaScript: Date 对象</h2>
+          <p>算法是生成两个时间对象，让后做减法，得到时间差，单位是毫秒数。
+            <pre>
+              var now = new Date();                 //获取现在时间
+              var dt = new Date('2100-1-1 0:0:0');  //生成目标时间对象
+              var ts = dt - now;                    //得到时间差
+              years = Math.floor(ts / 1000 / 60 / 60 / 24 / 365);//得到相差几年
+              console.log('2100-1-1 0:0:0 to now is ' + years + ' years.'
+            </pre>
+          </p>
+          <script>
+            var now = new Date();                 //获取现在时间
+            var dt = new Date('2100-1-1 0:0:0');  //生成目标时间对象
+            var ts = dt - now;                    //得到时间差
+            years = Math.floor(ts / 1000 / 60 / 60 / 24 / 365);//得到相差几年
+            console.log('2100-1-1 0:0:0 to now is ' + years + ' years.')
+          </script>
+        </div>
+        <div class="col-md-12">
+          <h2>Python: datetime</h2>
+          <p>
+            生成时间对象，做减法的到时间差。
+            <pre>
+                import datetime
+                
+                now = datetime.datetime.now()
+                dt = datetime.datetime(2100,1,1,1,0,0)
+                ts = dt - now
+                print(ts)
+            </pre>
+          </p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
