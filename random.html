@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-12">
             
-            <h2>PowerShell: Get-Random </h2>
+            <h2>PowerShell: Get-Random System.Random </h2>
             <p><kbd>&gt;Get-Random</kbd> This command gets a random integer between 0 (zero) and Int32.MaxValue.</p>
             <p><kbd>&gt;Get-Random -Maximum 100</kbd> This command gets a random integer between 0 (zero) and 99.</p>
             <p><kbd>&gt;Get-Random -Minimum 10.7 -Maximum 20.93</kbd>  This command gets a random floating-point number greater than or equal to 10.7 and less than 20.92.</p>
@@ -38,6 +38,19 @@ for($i =0; $i -lt 100; $i++){
     $al.add($t);
 }
 $al</pre>
+            </p>
+            <p>可以直接使用 .net 中的System.Random 类。
+            <pre>
+#定义ArrayList
+$array = New-Object System.Collections.ArrayList($null)
+#定义随机数对象
+$rnd = New-Object System.Random($null)
+
+for($i = 0; $i -lt 100; $i++){
+    $t = $rnd.next(100,200) #利用Random对象的next函数产生一个范围的随机数。
+    $array.Add($t)
+}
+$array</pre>
             </p>
         </div>
         <div class="col-md-12">
