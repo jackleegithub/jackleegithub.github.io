@@ -29,41 +29,20 @@
         </div>
         <div class="col-md-12">
             
-            <h2>PowerShell: Get-Random System.Random </h2>
-            <p><kbd>&gt;Get-Random</kbd> This command gets a random integer between 0 (zero) and Int32.MaxValue.</p>
-            <p><kbd>&gt;Get-Random -Maximum 100</kbd> This command gets a random integer between 0 (zero) and 99.</p>
-            <p><kbd>&gt;Get-Random -Minimum 10.7 -Maximum 20.93</kbd>  This command gets a random floating-point number greater than or equal to 10.7 and less than 20.92.</p>
-            <p><kbd>&gt;Get-Random -InputObject 1, 2, 3, 5, 8, 13 -Count 3</kbd>  This command gets three randomly selected numbers in random order from the array.</p>
-            <p>请看下面的例子。
+            <h2>PowerShell: System.Convert类 </h2>
+            <p><b>数值转字符串</b> <code>$string= [System.Convert]::ToString($number, radix to convert)</code></p>
+            <p><strong>字符串转换数值</strong> <code>$number = [System.Convert]::ToInt32($string, radix of string)</code></p>
+            <p>IP地址转2进制。
                 <pre>
-$al = New-Object System.Collections.ArrayList($null)
-#$al = @()
-#$al = [System.Collections.ArrayList]$al
-
-for($i =0; $i -lt 100; $i++){
-    $t = Get-Random -minimum 10 -maximum 100
-    $al.add($t);
-}
-$al</pre>
-            </p>
-            <p>可以直接使用 .net 中的System.Random 类。
-            <pre>
-#定义ArrayList
-$array = New-Object System.Collections.ArrayList($null)
-#定义随机数对象
-$rnd = New-Object System.Random($null)
-
-for($i = 0; $i -lt 100; $i++){
-    $t = $rnd.next(100,200) #利用Random对象的next函数产生一个范围的随机数。
-    $array.Add($t)
-}
-$array</pre>
+$ip = "192.168.1.100"
+$arr = $ip.split(".")|ForEach-Object{[System.Convert]::ToString($_, 2).PadLeft(8, '0')}
+$arr -join("-")</pre>
             </p>
         </div>
         <div class="col-md-12">
-            <h2>JavaScript: Number.toString(base) parseInt(string, base)</h2>
-            <p><strong>Number.toString(base):</strong>将整数转换成2、8、10、16进制的字符串形式。</p>
-            <p><strong>parseInt(string, base):</strong>将字符串的数值转换成数值。</p>
+            <h2>JavaScript: Number.toString(radix) parseInt(string, radix)</h2>
+            <p><strong>Number.toString(radix):</strong>将整数转换成2、8、10、16进制的字符串形式。</p>
+            <p><strong>parseInt(string, radix of string):</strong>将字符串(10进制）的数值转换成radix对应进制的数值。</p>
             <p>
                 <pre>
 var v = 100;
@@ -114,40 +93,14 @@ document.querySelector("#txt").innerHTML = txt;</pre>
             </script>
         </div>
         <div class="col-md-12">
-          <h2>Python: random 模块</h2>
-          <p>This module implements pseudo-random number generators for various distributions.For integers, there is uniform selection from a range. For sequences, there is uniform selection of a random element, a function to generate a random permutation of a list in-place, and a function for random sampling without replacement.</p>
-          <dl>Functions : 
-            <dt>Functions for integers</dt>
-              <dd><kbd>random.randrange(start, stop[, step])</kbd>Return a randomly selected element from range(start, stop, step). This is equivalent to choice(range(start, stop, step)), but doesn’t actually build a range object.</dd>
-              <dd><kbd>random.randint(a, b)</kbd>Return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).</dd>
-            <dt>Functions for sequences</dt>
-            <dd><kbd>random.choice(seq)</kbd>Return a random element from the non-empty sequence seq.</dd>
-            <dd><kbd>random.shuffle(x[, random])</kbd>:Shuffle the sequence x in place.</dd>
-            <dd><kbd>random.sample(population, k)</kbd>:Return a k length list of unique elements chosen from the population sequence or set. </dd>
-          </dl>
-          <p>
-            <pre>
-#random 模块，处理随机数的相关操作
-import random
-
-array = []
-for x in range(100):
-    array.append(random.randrange(1,100,7))
-
-result= 0
-for x in array:
-    result += x
-print(array)
-print("Sum of array is:%d." % result)
-            </pre>
-          </p>
+          <h2>Python: 函数hex, oct, bin, int</h2>
+          <p>函数hex, oct, bin 是将数值转换成相应进制的字符串。</p>
+          <p>函数int 将字符串转换数值。<code>int(string, radix of string)</code></p>
         </div>
         <div class="col-md-14">
             <h2>总结</h2>
-            <p>PowerShell 由内置函数Get-Random生成随机数, <kbd>$v = Get-Random -Maximum 100</kbd>。</p>
-            <p>JavaScript 由JavaScript的Math对象的random()函数处理，，<kbd>var value = m + Math.random() * (n - m)</kbd>  </p>
-            <p>Python 由random 模块处理，, <kbd>v = random.randint(m, n)</kbd>，因为返回的是dict数据类型。</p>
-            <p>JavaScript 和 Python 都由外置模块的函数提供随机数功能，PowerShell 应该也可以使用.net 的随机函数，System.Random()。</p>
+            <p>数值转换成二、八、十、十六进制，返回的类型都是字符串，因为数值可以直接运算，不需要转换成都是数值的其他进制。</p>
+            <p>字符串转化成数值，都需要指明字符串表示的数值是什么进制的。</p>
         </div>
       </div>
     </div>
