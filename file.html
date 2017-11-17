@@ -97,56 +97,54 @@ int main(){
                         </pre>
                     </section>
                     <section>
-                        <h2>JavaScript 多行字符串</h2>
-                        <p>JavaScript 有多种实现方式。</p>
-                        <p>第一种，可以使用 + 将多个字符串相连。</p>
-                        <p>第二种方法也是在字符串后面添加\，但是斜杠后面不能有任何字符。</p>
-                        <p>第三者可以使用数组的join方法。</p>
-                        <p>第四种JS原生多行字符串，使用撇号`（数字1左边的字符）。</p>
-                        <pre>
-var str1 = "Lorem ipsum dolor sit amet consectetur adipisicing elit.";
-str1 += "Fuga nihil quidem ratione dolore. Qui velit deleniti earum natus sed ";
-str1 += "rem sit, nobis facere autem, inventore tempore doloremque voluptatibus ";
-str1 += "Maiores, sed?";
+                        <h2>JavaScript 的文件读写</h2>
+                        <p>JavaScript 读取本地文件，一个是cookie 文件，也可以利用HTML5 中的FileReader 对象异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容。</p>
+                        <p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader">MDN上的文档</a>。</p>
+                        <p>构造函数FileReader()，返回一个新构造的FileReader。</p>
+                        <p>方法概述</p>
 
-var str2 = "Lorem ipsum dolor sit amet consectetur adipisicing elit.\
-Fuga nihil quidem ratione dolore. Qui velit deleniti earum natus sed,\
-rem sit, nobis facere autem, inventore tempore doloremque voluptatibus.\
-   Maiores, sed?";
-
-var str3 = ["Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "Fuga nihil quidem ratione dolore. Qui velit deleniti earum natus sed,",
-            "rem sit, nobis facere autem, inventore tempore doloremque voluptatibus.",
-            "Maiores, sed?"].join('');
-         
-var str4 = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-Fuga nihil quidem ratione dolore. Qui velit deleniti earum natus sed,
-rem sit, nobis facere autem, inventore tempore doloremque voluptatibus.
-Maiores, sed?`;
-
-for(var i = 1;i <= 4; i++){
-      console.log(eval("str" + i));
-}
-                        </pre>
+                        <p><input type="file" id="jsFile"></p>
+                        <script>
+                            let reader = new FileReader();
+                            let fileInput = document.querySelector("#jsFile");
+                            fileInput.onchange = function(){
+                                if(fileInput.files.length ===0){
+                                    return false;
+                                }else{
+                                    file = fileInput.files[0];
+                                    
+                                    reader.onload=function(){
+                                        console.log(reader.result);    
+                                    }
+                                    reader.readAsDataURL(file);  
+                                }
+                            }
+                        </script>
                     </section>
                     <section>
-                        <h2>PowerShell多行字符串</h2>
-                        <p>PowerShell 的多行字符串以 @"开始，以 "@" 结束。</p>
+                        <h2>PowerShell 的文件读写</h2>
+                        <p>PowerShell 文件读写可以有两种方式实现，一种使用内置命令 Get-Content、 Set-Content、Out-File、重定向&gt;和&gt;&gt;；</p>
                         <pre>
-<#
-FileName:multipleLineString.ps1
-Function:多行字符串
-CreateDate:2017-11-14
-Author:李志新 
+Get-Content -Path path/fileName -totalCount number | Set-Content path/fileName</pre>
+                        <p>另一种方式是使用.net 框架中的System.IO.StreamReader、System.IO.StreamWrite。</p>
+                        <pre>
+&lt;#
+filename:inputOupt.ps1
+function:use .net implement file reader and writer.
+author:李志新
+datetime:2017-11-17
 #>
 
-$str = @"
-Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-Placeat hic veniam ducimus dolores tempore? Illum iure velit dolores. 
-Ut, atque dolores. Consequuntur, odit ex aspernatur eligendi tempore sequi fugit nam!
-"@
-$str
-                        </pre>
+$filename = "D:\Learn\PowerShell\a.txt";
+$write = New-Object System.IO.StreamWriter($filename)
+$write.Write("Hello, world!")
+$write.Close()
+
+$stringReader = New-Object System.IO.streamReader($filename);
+$content = $stringReader.ReadToEnd()
+$stringReader.Close()
+
+$content</pre>
                     </section>
                     <section>
                         <h2>Python 文件的读写</h2>
@@ -208,25 +206,37 @@ $str
                                     </tbody>
                                     </table>
                             </dd>
+                            <dt>encoding</dt>
+                            <dd>encoding is the name of the encoding used to decode or encode the file. This should only be used in text mode. The default encoding is platform dependent, but any text encoding supported by Python can be used. </dd>
                         </dl>
+                        </section>
+                        
+                        <p>Methods of File Objects</p>
+                        <ul>
+                            <li>fileOjbect.read(size)</li>
+                            <li>fileOjbect.readline()</li>
+                            <li>fileOjbect.readlines()</li>
+                            <li>fileOjbect.write(string)</li>
+                            <li>fileOjbect.tell()</li>
+                            <li>fileOjbect.seek(offset, fromWhat)</li>
+                            <li>fileOjbect.close()</li>
+                        </ul>
+                        <p>通常使用with 语句打开文件<code>with open("filename", "mode") as f:</code></p>
                         <pre>
-'''
-FileName:multipleLineString.ps1
-Function:多行字符串
-CreateDate:2017-11-14
-Author:李志新 
-'''
-str1 = "Lorem ipsum dolor sit amet consectetur adipisicing elit. \
-Placeat hic veniam ducimus dolores tempore? Illum iure velit dolores. \
-Ut, atque dolores. Consequuntur, odit ex aspernatur eligendi tempore sequi fugit nam!"
+#filename:scoreAnaylse.py
+#function:file object read and write with use open function
+#authoer:李志新
+#datetime:2017-11-16
 
-str2 = '''Lorem ipsum dolor sit amet consectetur adipisicing elit. \
-Placeat hic veniam ducimus dolores tempore? Illum iure velit dolores. 
-Ut, atque dolores. Consequuntur, odit ex aspernatur eligendi tempore sequi fugit nam!'''
-
-print(str1,str2)
-                              
-                        </pre>
+with open("score.txt") as f:
+    ls =f.readlines()
+totalScore = 0
+count = 0
+for line in ls:
+    arr = line.split(",")
+    totalScore = totalScore + int(arr[4])
+    count = count + 1          
+print("There are have %d students in exam and avaerage is %.2f" %(count, totalScore / count))</pre>
                     </section>    
                     <section>
                         <h2>总结</h2>
