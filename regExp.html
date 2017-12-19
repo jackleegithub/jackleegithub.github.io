@@ -297,28 +297,11 @@
                 </div>
                 <div class="col-md-12">
                     <section>
-                        <h2>C/C++的多行字符串 </h2>
-                        <p>没有直接的多行字符串格式，可以利用多行语句的语法实现，每一行后加\，只要不是将基本词法元素分开，都可以直接折行。基本词法元素就是 关键字、字符串、数字等等。</p>
-                        <pre>
-/*
-FileName:multipleLineString.cpp
-Function:多行字符串
-CreateDate:2017-11-14
-Author:李志新 
-*/
-
-#include &lt;iostream&gt;
-using namespace std;
-int main(){
-   const char* ptr = "Lorem ipsum dolor sit amet consectetur adipisicing elit.\
-            Fuga nihil quidem ratione dolore. Qui velit deleniti earum natus sed,\
-            rem sit, nobis facere autem, inventore tempore doloremque voluptatibus.\
-         Maiores, sed?";
-   cout <<  ptr << endl;
-   
-   return 0;
-}
-                        </pre>
+                        <h2>C/C++ 正则表达式 </h2>
+                        <p>在头文件 regex 中有关于正则表达式的实现和接口。</p>
+                        <p>cmatch、smatch 类保存匹配结果。</p>
+                        <p>参考<a href="http://blog.csdn.net/qianghaohao/article/details/50727556">C++标准库中正则表达式的使用</a></p>
+                       
                     </section>
                     <section>
                         <h2>JavaScript 的正则表达式</h2>
@@ -374,102 +357,48 @@ $r = [regex]::Matches($html, $p)
 $r|ForEach-Object{$_.value}</pre>
                     </section>
                     <section>
-                        <h2>Python 文件的读写</h2>
-                        <p>Python 文件的读写是同过内置函数 open 实现的，可以读取文本文件和二进制文件，语法如下：<br>
-                            <code>open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</code>
-                        </p>
+                        <h2>Python 正则表达式</h2>
+                        <p>Python 中的正则表达式由 re 模块提供。由于\ 在字符串中有转意的作用，与正则表达式冲突，通常需要双斜杠(\\)，可以使用r'string' 语法，r表示字符字面量，不转意。</p>
                         <dl>
-                            <dt>file</dt>
-                            <dd>可以是文件名（相对路径或者绝对路径），或者是一个文件的描述符（一个整数）。</dd>
-                            <dt>mode</dt>
-                            <dd>文件打开方式的字符串。</dd>
-                            <dd>默认值是'r'，表示打开并以文本模式读取文件。</dd>
-                            <dd>'w' 表示可以写入文件（清空原有文件内容）；'a' 表示追加文件内容；</dd>
+                            <dt>re.compile(pattern, flags=0)</dt>
+                            <dd>将正则表达式模式编译成一个正则表达式对象，它可以用于匹配使用它的match ()和search ()方法。</dd>
                             <dd>
-                                <table class="table table-border talbe-hover">
-                                    <colgroup>
-                                        <col width="20%" />
-                                        <col width="80%" />
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>Character</th>
-                                            <th>Meaning</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="row-even">
-                                            <td>'r'</td>
-                                            <td>open for reading (default)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'w'</td>
-                                            <td>open for writing, truncating the file first</td>
-                                        </tr>
-                                        <tr >
-                                            <td>'x'</td>
-                                            <td>open for exclusive creation, failing if the file already exists</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'a'</td>
-                                            <td>open for writing, appending to the end of the file if it exists</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'b'</td>
-                                            <td>binary mode</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'t'</td>
-                                            <td>text mode (default)</td>
-                                        </tr>
-                                        <tr >
-                                            <td>'+'</td>
-                                            <td>open a disk file for updating (reading and writing)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>'U'</td>
-                                            <td>universal newlines mode (deprecated)</td>
-                                        </tr>
-                                    </tbody>
-                                    </table>
+                                <dl>
+                                    <dt>re.I、re.IGNORECASE</dt>
+                                    <dd>执行不区分大小写的匹配 ；如[A-Z]表达式将太匹配小写字母。这不被受当前的区域设置。</dd>
+                                    <dt>re.M、re.MULTILINE</dt>
+                                    <dd>当指定时，模式字符' ^'匹配字符串的开头以及每个行的开头（紧接每个换行符）； 模式字符'$'匹配字符串的末尾以及每一行的结尾（紧靠每个换行符之前）。默认情况下， '^'只匹配字符串的开始，'$'只匹配字符串的末尾和字符串末尾换行符（如果有的话）之前的位置。</dd>
+                                    <dt>re.S、re.DOTALL</dt>
+                                    <dd>使'.'特殊字符匹配任何字符，包括换行 ；如果没有此标志， '.'将匹配任何内容除换行符。</dd>
+                                </dl>
                             </dd>
-                            <dt>encoding</dt>
-                            <dd>encoding is the name of the encoding used to decode or encode the file. This should only be used in text mode. The default encoding is platform dependent, but any text encoding supported by Python can be used. </dd>
+                            <dt>re.search(pattern, string, flags=0)</dt>
+                            <dd>扫描字符串，寻找的第一个由该正则表达式模式产生匹配的位置，并返回相应的MatchObject实例。返回None如果没有字符串中的位置匹配模式 ；请注意这不同于在字符串的某个位置中找到一个长度为零的匹配。</dd>
+                            <dt>re.findall(pattern, string, flags=0)</dt>
+                            <dd>返回一个迭代器符合MatchObject情况 在 RE模式字符串中的所有非重叠的匹配。该字符串是扫描的左到右，和按发现的顺序返回匹配。空匹配包含在结果中，除非他们接触的另一个匹配的开头。</dd>
                         </dl>
                         </section>
                         
-                        <p>Methods of File Objects</p>
-                        <ul>
-                            <li>fileOjbect.read(size)</li>
-                            <li>fileOjbect.readline()</li>
-                            <li>fileOjbect.readlines()</li>
-                            <li>fileOjbect.write(string)</li>
-                            <li>fileOjbect.tell()</li>
-                            <li>fileOjbect.seek(offset, fromWhat)</li>
-                            <li>fileOjbect.close()</li>
-                        </ul>
-                        <p>通常使用with 语句打开文件<code>with open("filename", "mode") as f:</code></p>
+    
+                        <p>获取网页中的URL。</p>
                         <pre>
-#filename:scoreAnaylse.py
-#function:file object read and write with use open function
-#authoer:李志新
-#datetime:2017-11-16
+import requests
+import re
 
-with open("score.txt") as f:
-    ls =f.readlines()
-totalScore = 0
-count = 0
-for line in ls:
-    arr = line.split(",")
-    totalScore = totalScore + int(arr[4])
-    count = count + 1          
-print("There are have %d students in exam and avaerage is %.2f" %(count, totalScore / count))</pre>
+url = 'https://jackleegithub.github.io/regExp.html';
+r = requests.get(url);
+html = r.text
+
+p = re.compile(r'(?<=href=").*?(?=")');
+urls = re.findall(p, html)
+
+for url in urls:
+    print(url)</pre>
                     </section>    
                     <section>
                         <h2>总结</h2>
                         <p>
-                           JavaScript、PowerShell、Python都有专门的多行字符串语法，对应的分别是撇号`...`、@"..."@、''' ... '''。
-                           还有一种变通利用多行语句实现（行尾加\），有C/C++、JavaScript、Python。
+                           正则表达式都是第三方类（库，模块）提供支持，模式字符串的字面量书写会有细微差别，JS和Python 感觉最好；类库都提供了模式匹配、查找、替换的方法，JS主要是字符串提供方法。
                         </p>
                     </section>    
                 </div>
