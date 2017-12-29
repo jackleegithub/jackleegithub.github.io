@@ -1,3 +1,5 @@
+2017-12-30
+	Add replace.
 2017-12-19:
 	Finish regexp.
 
