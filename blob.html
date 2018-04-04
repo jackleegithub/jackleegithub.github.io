@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>二进制大对象</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            table.table-hover{counter-reset: order;}
+            table.table-hover tr>td:first-child::before{
+                counter-increment: order;
+                content:counter(order);
+            }
+        </style>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#lzxNav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">CppJavaScriptPowerShellPython</a>
+                </div>
+            
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="lzxNav">
+                <ul class="nav navbar-nav">
+                    <li class="active dropdown">
+                        <a href="base.html" class="dropdown-toggle" data-toggle="dropdown" rolte="button" aria-haspopup="true" aria-expanded="false">基础 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="note.html">注释</a></li>
+                            <li><a href="multipleLineString.html">多行字符串</a></li>
+                            <li><a href="timespan.html">计算时间差</a></li>
+                            <li><a href="json.html">JSON</a></li>
+                            <li><a href="random.html">随机数</a></li>
+                            <li><a href="radix.html">进制转换</a></li>
+                            <li><a href="file.html">文件读写</a></li>
+                            <li><a href="regExp.html">正则表达式</a></li>
+                            <li><a href="replace.html">字符串替换</a></li>
+                            <li><a href="blob.html">二进制大对象</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="advance.html">高级</a></li>
+                    <li class="dropdown">
+                        <a href="project.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">项目<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="timespan.html">计算时间差</a></li>
+                            <li><a href="json.html">JSON</a></li>
+                            <li><a href="random.html">随机数</a></li>
+                            <li><a href="radix.html">进制转换</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <section>
+                        <h2>C/C++ 正则表达式 </h2>
+                        <p>在头文件 regex 中有关于正则表达式的实现和接口。</p>
+                        <p>cmatch、smatch 类保存匹配结果。</p>
+                        <p>参考<a href="http://blog.csdn.net/qianghaohao/article/details/50727556">C++标准库中正则表达式的使用</a></p>
+                       
+                    </section>
+                    <section id='jsSection'>
+                        <h2>JavaScript 的BLOB</h2>
+                        <p>Blob(Binary Large Object)术语最初来自数据库，早期数据库因为要存储声音、图片、以及可执行程序等二进制数据对象所以给该类对象取名为Blob。 </p>
+                        <p>Blob 对象表示一个不可变、原始数据的类文件对象。Blob 表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。</p>
+                        <p>要从其他非blob对象和数据构造一个Blob，请使用 Blob() 构造函数。要创建包含另一个blob数据的子集blob，请使用 slice()方法。文件继承自Blob。</p>
+                        <p>BLOB 类的构造函数、熟悉和方法参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Blob">MDN</a>   </p>
+                        <p>一个关于BLOB的博客 <a href="https://blog.csdn.net/gentlycare/article/details/50445014">显示本地图片文件</a></p>
+                        <pre>
+var input = document.createElement('input');
+input.type = 'file';
+input.accept = 'image/*';
+input.multiple = true;
+input.style.display = 'none';
+document.body.appendChild(input);
+
+var fileSelect = document.createElement('a');
+fileSelect.href = '#';
+fileSelect.appendChild(document.createTextNode('Choose files'));
+document.body.appendChild(fileSelect);
+
+var imgList = document.createElement('div');
+imgList.innerHTML = '&lt;p &gt; No file Selected!&lt;/p &gt;';
+document.body.appendChild(imgList);
+
+input.addEventListener('change',
+    function(e){
+        var files = this.files;
+        if(files.length == 0){
+            return ;
+        }else{
+            imgList.innerHTML = '';
+            var ls = document.createElement('ul');
+            imgList.appendChild(ls);
+            for(var i = 0;i &lt; files.length; i++){
+            var li = document.createElement('li');
+            ls.appendChild(li);
+
+            var img = document.createElement('img');
+            img.src = window.URL.createObjectURL(files[i]);
+            img.height = 60;
+            img.width = 60;
+            img.onload = function(){
+                window.URL.revokeObjectURL(img.src);
+            };
+            li.appendChild(img);
+            var info = document.createElement('span');
+            info.innerHTML = files[i].name + ':' + files[i].size + ' bytes.';
+            li.appendChild(info);
+            }
+        }
+    }, 
+    false);
+fileSelect.addEventListener('click',
+function(e){
+    input.click();
+    e.preventDefault();
+},
+false);</pre>
+                        <script>
+                            var jsSection = document.getElementById('jsSection');
+                            var input = document.createElement('input');
+                            input.type = 'file';
+                            input.accept = 'image/*';
+                            input.multiple = true;
+                            input.style.display = 'none';
+                            jsSection.appendChild(input);
+
+                            var fileSelect = document.createElement('a');
+                            fileSelect.href = '#';
+                            fileSelect.appendChild(document.createTextNode('Choose files'));
+                            jsSection.appendChild(fileSelect);
+                            
+                            var imgList = document.createElement('div');
+                            imgList.innerHTML = '<p> No file Selected!</p>';
+                            jsSection.appendChild(imgList);
+                            
+                            input.addEventListener('change',
+                                function(e){
+                                    var files = this.files;
+                                    if(files.length == 0){
+                                    return ;
+                                    }else{
+                                    imgList.innerHTML = '';
+                                    var ls = document.createElement('ul');
+                                    imgList.appendChild(ls);
+                                    for(var i = 0;i < files.length; i++){
+                                        var li = document.createElement('li');
+                                        ls.appendChild(li);
+
+                                        var img = document.createElement('img');
+                                        img.src = window.URL.createObjectURL(files[i]);
+                                        img.height = 60;
+                                        img.width = 60;
+                                        img.onload = function(){
+                                            window.URL.revokeObjectURL(img.src);
+                                        };
+                                        li.appendChild(img);
+                                        var info = document.createElement('span');
+                                        info.innerHTML = files[i].name + ':' + files[i].size + ' bytes.';
+                                        li.appendChild(info);
+                                    }
+                                    }
+                                }, 
+                                false);
+                            fileSelect.addEventListener('click',
+                            function(e){
+                                input.click();
+                                e.preventDefault();
+                            },
+                            false);                            
+                        </script>
+                    </section>
+                    <section>
+                        <h2>PowerShell 的正则表达式</h2>
+                        <p>PowerShell 使用Regex 类来实现正则表达式，命名空间是 System.Text.RegularExpressions。在PowerShell 中可直接使用regex。</p>
+                        <p>Regex 类的常用方法。</p>
+                        <dl>
+                            <dt>IsMatch</dt>
+                            <dd>通过调用 IsMatch 方法确定输入文本中是否具有正则表达式模式匹配项。</dd>  
+                            <dd>Regex.IsMatch(string, pattern)</dd>  
+                            <dt>Match、Matches</dt>
+                            <dd>通过调用 Match 或 Matches 方法检索匹配正则表达式模式的一个或所有文本匹配项。</dd>
+                            <dd>第一个方法返回提供有关匹配文本的信息的 Match 对象。 第二个方法返回 MatchCollection 对象，该对象对于在分析的文本中找到的每个匹配项包含一个 Match 对象。</dd>   
+                            <dt>Replace</dt>
+                            <dd>通过调用 Replace 方法替换匹配正则表达式模式的文本。</dd>
+                        </dl>
+                        <pre>
+$p = New-Object System.Text.RegularExpressions.Regex('(?&lt;=href\s*?=\s*?").*?(?=" *)') 
+$p = [regex]('(?&lt;=href\s*?=\s*?").*?(?=" *)')
+$html = @"
+        &lt;nav class="navbar navbar-default"&gt;
+            ......    
+        &lt;/div&gt;
+"@
+$r =[System.Text.RegularExpressions.Regex]::Matches($html, $p)
+$r = [regex]::Matches($html, $p)
+$r|ForEach-Object{$_.value}</pre>
+                    </section>
+                    <section>
+                        <h2>Python 字符串替换</h2>
+                        <dl>
+                            <dt>字符串对象提供replace 方法。</dt>
+                            <dd><code>str.replace(old, new[, count])</code></dd>
+                            <dd>Return a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced.</dd>
+                            <dt>re 模块提供 sub 方法，实现字符串的文本替换，sub 是 substitue 的缩写，意思是替换。</dt>
+                            <dd>语法是：<code>re.sub(pattern, repl, string, count=0, flags=0)</code></dd>
+                            <dd>Return the string obtained by replacing the leftmost non-overlapping occurrences of pattern in string by the replacement repl. If the pattern isn’t found, string is returned unchanged. repl can be a string or a function; if it is a string, any backslash escapes in it are processed. That is, \n is converted to a single newline character, \r is converted to a carriage return, and so forth. Unknown escapes such as \& are left alone. Backreferences, such as \6, are replaced with the substring matched by group 6 in the pattern. </dd>
+                            <dd>If repl is a function, it is called for every non-overlapping occurrence of pattern. The function takes a single match object argument, and returns the replacement string</dd>
+                            <dd>参考地址 <a href="https://docs.python.org/3/library/re.html#module-re">re.sub</a></dd>
+                        </dl>
+                        </section>
+                        
+    
+                        <p>替换掉文件名在的/、\、(、)、" 符号为-。</p>
+                        <pre>
+import re
+
+p = re.compile(r'[/\\()"]')
+newFileName = re.sub(p, '_', oldFileName)</pre>
+                    </section>    
+                    <section>
+                        <h2>总结</h2>
+                        <p>
+                           正则表达式都是第三方类（库，模块）提供支持，模式字符串的字面量书写会有细微差别，JS和Python 感觉最好；类库都提供了模式匹配、查找、替换的方法，JS主要是字符串提供方法。
+                        </p>
+                    </section>    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
