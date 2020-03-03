@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>生成器</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            table.table-hover{counter-reset: order;}
+            table.table-hover tr>td:first-child::before{
+                counter-increment: order;
+                content:counter(order);
+            }
+        </style>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#lzxNav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">CppJavaScriptPowerShellPython</a>
+                </div>
+            
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="lzxNav">
+                <ul class="nav navbar-nav">
+                    <li class="active dropdown">
+                        <a href="base.html" class="dropdown-toggle" data-toggle="dropdown" rolte="button" aria-haspopup="true" aria-expanded="false">基础 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="note.html">注释</a></li>
+                            <li><a href="multipleLineString.html">多行字符串</a></li>
+                            <li><a href="timespan.html">计算时间差</a></li>
+                            <li><a href="json.html">JSON</a></li>
+                            <li><a href="random.html">随机数</a></li>
+                            <li><a href="radix.html">进制转换</a></li>
+                            <li><a href="file.html">文件读写</a></li>
+                            <li><a href="regExp.html">正则表达式</a></li>
+                            <li><a href="replace.html">字符串替换</a></li>
+                            <li><a href="blob.html">二进制大对象</a></li>
+                            <li><a href="yield.html">生成器</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="advance.html">高级</a></li>
+                    <li class="dropdown">
+                        <a href="project.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">项目<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="timespan.html">计算时间差</a></li>
+                            <li><a href="json.html">JSON</a></li>
+                            <li><a href="random.html">随机数</a></li>
+                            <li><a href="radix.html">进制转换</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <section>
+                        <h2>C/C++ 生成器 </h2>
+                        <p>准备研究</p>
+                       
+                    </section>
+                    <section id='jsSection'>
+                        <h2>JavaScript 的生成器</h2>
+                        <p>JavaScript 中的生成器可以用闭包和yield 生成。</p>
+                        <p>用类实现生成器，实现斐波那切序列。</p>
+                        <pre>
+//类实现生成器
+var Fab = function (){
+    this.a = 0;
+    this.b = 1;
+    
+    this.next = function(){
+        var temp = this.b;
+        this.b = this.a + this.b;
+        this.a = temp;
+        return temp;
+    };
+};
+var g= new Fab();
+console.log(g.next(), g.next(),g.next(),g.next());                            
+                        </pre>
+                        <p>闭包类似其他高级语言的类，成员变量在Javascript 中表现为局部变量。以斐波那契序列为例。</p>
+                        <pre>
+//闭包实现生成器 斐波那契
+var fab = function(){
+    var a = 0;
+    var b = 1;
+    return {
+        next:function(){
+            var result = b;
+            b = a + b;
+            a = result;           
+            return result;
+        },
+    };
+};                            
+                        </pre>
+                        <p>用yield 实现生成器。</p>
+                        <p>yield关键字使生成器函数执行暂停，yield关键字后面的表达式的值返回给生成器的调用者。它可以被认为是一个基于生成器的版本的return关键字。</p>
+                        <p>yield关键字实际返回一个IteratorResult对象，它有两个属性，value和done。value属性是对yield表达式求值的结果，而done是false，表示生成器函数尚未完全完成。</p>
+                        <p>一旦遇到 yield 表达式，生成器的代码将被暂停运行，直到生成器的 next() 方法被调用。每次调用生成器的next()方法时，生成器都会恢复执行，直到达到以下某个值。</p>
+                        <p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield">JavaScript | MDN</a></p>
+                        <pre>
+// yield 表达式用于委托给另一个generator 或可迭代对象。
+var generator = function*(max){
+    var a = 0;
+    var b = 1;
+    var n = 0;
+
+    while(n < max){
+        var temp = b;
+        yield temp;
+        b = a + b;
+        a = temp;
+        n = n + 1;
+    }    
+};
+var g =generator(11);
+console.log(g.next(), g.next(),g.next(),g.next());
+var r = g.next();
+while(r["done"]==false){
+    console.log(r["value"]);
+    r = g.next();
+} 
+                        </pre>
+                        <script>
+                            // yield* 表达式用于委托给另一个generator 或可迭代对象。
+                            var generator = function*(max){
+                                var a = 0;
+                                var b = 1;
+                                var n = 0;
+
+                                while(n < max){
+                                    var temp = b;
+                                    yield temp;
+                                    b = a + b;
+                                    a = temp;
+                                    n = n + 1;
+                                }    
+                            };
+                            var g =generator(11);
+                            console.log(g.next(), g.next(),g.next(),g.next());
+                            var r = g.next();
+                            while(r["done"]==false){
+                                console.log(r["value"]);
+                                r = g.next();
+                            }                        
+                        </script>
+                    </section>
+                    <section>
+                        <h2>PowerShell 的生成器</h2>
+                        <p>研究中...</p>
+                        <!--p>PowerShell 使用Regex 类来实现正则表达式，命名空间是 System.Text.RegularExpressions。在PowerShell 中可直接使用regex。</p>
+                        <p>Regex 类的常用方法。</p>
+                        <dl>
+                            <dt>IsMatch</dt>
+                            <dd>通过调用 IsMatch 方法确定输入文本中是否具有正则表达式模式匹配项。</dd>  
+                            <dd>Regex.IsMatch(string, pattern)</dd>  
+                            <dt>Match、Matches</dt>
+                            <dd>通过调用 Match 或 Matches 方法检索匹配正则表达式模式的一个或所有文本匹配项。</dd>
+                            <dd>第一个方法返回提供有关匹配文本的信息的 Match 对象。 第二个方法返回 MatchCollection 对象，该对象对于在分析的文本中找到的每个匹配项包含一个 Match 对象。</dd>   
+                            <dt>Replace</dt>
+                            <dd>通过调用 Replace 方法替换匹配正则表达式模式的文本。</dd>
+                        </dl>
+                        <pre>
+$p = New-Object System.Text.RegularExpressions.Regex('(?&lt;=href\s*?=\s*?").*?(?=" *)') 
+$p = [regex]('(?&lt;=href\s*?=\s*?").*?(?=" *)')
+$html = @"
+        &lt;nav class="navbar navbar-default"&gt;
+            ......    
+        &lt;/div&gt;
+"@
+$r =[System.Text.RegularExpressions.Regex]::Matches($html, $p)
+$r = [regex]::Matches($html, $p)
+$r|ForEach-Object{$_.value}</pre-->
+                    </section>
+                    <section>
+                    <h2>Python 生成器</h2>
+                    <p>跟 JavaScript 类似，可以通过类和 yield 来实现。</p>
+                    <p>类实现生成器。</p>
+                    <pre>
+#类实现生成器，需要定义 __iter__ 和 next 函数
+class Fab(object):
+    def __init__(self,max):
+        self.max = max
+        self.n = 0
+        self.a = 0
+        self.b = 1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.n < self.max:
+            r = self.b
+            self.b = self.a + self.b
+            self.a = r
+
+            self.n = self.n + 1
+            return r
+        raise StopIteration()</pre>
+                    <p>yield 实现生成器。</p>
+                    <pre>
+def fab(max):
+    n,a,b = 0,0,1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n += 1
+        
+f = fab(5)
+print(f.next())
+                    </pre>
+                    </section>    
+                    <section>
+                        <h2>总结</h2>
+                        <p>
+                           生成器实际是一个对象，可以利用计算换空间，内部有保存数据的空间和产生新数据的方法，每次调用产生新的数据。
+                        </p>
+                        <p>
+                            yield 是类似 return 的关键字，返回一个生成器对象，再调用生成器对象，将从 yield 的下一条语句开始执行。
+                        </p>
+                    </section>    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
