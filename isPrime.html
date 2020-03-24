@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>质数判断</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #txt{
+            font-size:26px;
+            font-family: "Arial";
+            word-wrap: break-word;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+                <h1 class="text-center">质数判断</h1>
+        </div>
+        <div class="col-md-12">
+            
+            <h2>正则表达式判断质数</h2>
+            <p>作者Abigail，把一个整数表示成由"1"构成的字符串，所有1之和等于证书本身，查看这个整数是不是2"11"、3"111"、4"1111"......的倍数，判断是否是质数。</p>
+            <p>JavaScript 代码如下：</p>
+
+                <pre>
+var isPrime = (n)=>{
+    return !/^1?$|^(11+?)\1+$/.test(new Array(n + 1).join("1"));
+};</pre>
+
+        </div>
+        <div class="col-md-12">
+            <h2>JavaScript: Number.toString(radix) parseInt(string, radix)</h2>
+            <p><strong>Number.toString(radix):</strong>将整数转换成2、8、10、16进制的字符串形式。</p>
+            <p><strong>parseInt(string, radix of string):</strong>将字符串(10进制）的数值转换成radix对应进制的数值。</p>
+            <p>
+                <pre>
+var v = 100;
+var arr = new Array();
+var arrRadix = [2, 8, 10, 16];
+for(i = 0; i &lt; arrRadix.length; i++){
+    //Number.toString(radix)
+    console.log(v + " radix(" + arrRadix[i] + ") = " + v.toString(arrRadix[i]));
+    arr.push(v.toString(arrRadix[i]))
+}
+
+for(i = 0; i &lt; arr.length; i++){
+    //parseInt(string, radix)
+    console.log(arr[i] + "raidx(" + arrRadix[i] + ") = " + parseInt(arr[i]) );
+}
+//阿拉伯语
+var txt = "";
+var start = 0x676;
+for(i = 0; i &lt; 100; i++){
+    var t = start + i;
+    txt += "&amp;#x0" + t.toString(16) + ";&nbsp;"
+}
+document.querySelector("#txt").innerHTML = txt;</pre>
+            </p>
+            <p id="txt"></p>
+            <script>
+                var v = 100;
+                var arr = new Array();
+                var arrRadix = [2, 8, 10, 16];
+                for(i = 0; i < arrRadix.length; i++){
+                    //Number.toString(radix)
+                    console.log(v + " radix(" + arrRadix[i] + ") = " + v.toString(arrRadix[i]));
+                    arr.push(v.toString(arrRadix[i]))
+                }
+                
+                for(i = 0; i < arr.length; i++){
+                    //parseInt(string, radix)
+                    console.log(arr[i] + "raidx(" + arrRadix[i] + ") = " + parseInt(arr[i]) );
+                }
+                //阿拉伯语
+                var txt = "";
+                var start = 0x676;
+                for(i = 0; i < 100; i++){
+                    var t = start + i;
+                    txt += "&#x0" + t.toString(16) + ";&nbsp;"
+                }
+                document.querySelector("#txt").innerHTML = txt;
+            </script>
+        </div>
+        <div class="col-md-12">
+          <h2>Python: 函数hex, oct, bin, int</h2>
+          <p>函数hex, oct, bin 是将数值转换成相应进制的字符串。</p>
+          <p>函数int 将字符串转换数值。<code>int(string, radix of string)</code></p>
+        </div>
+        <div class="col-md-14">
+            <h2>总结</h2>
+            <p>数值转换成二、八、十、十六进制，返回的类型都是字符串，因为数值可以直接运算，不需要转换成都是数值的其他进制。</p>
+            <p>字符串转化成数值，都需要指明字符串表示的数值是什么进制的。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
