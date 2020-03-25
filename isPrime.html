@@ -28,7 +28,6 @@
                 <h1 class="text-center">质数判断</h1>
         </div>
         <div class="col-md-12">
-            
             <h2>正则表达式判断质数</h2>
             <p>作者Abigail，把一个整数表示成由"1"构成的字符串，所有1之和等于证书本身，查看这个整数是不是2"11"、3"111"、4"1111"......的倍数，判断是否是质数。</p>
             <p>JavaScript 代码如下：</p>
@@ -40,62 +39,44 @@ var isPrime = (n)=>{
 
         </div>
         <div class="col-md-12">
-            <h2>JavaScript: Number.toString(radix) parseInt(string, radix)</h2>
-            <p><strong>Number.toString(radix):</strong>将整数转换成2、8、10、16进制的字符串形式。</p>
-            <p><strong>parseInt(string, radix of string):</strong>将字符串(10进制）的数值转换成radix对应进制的数值。</p>
+            <h2>2 的倍数改良版</h2>
+            <p>我们知道，如果一个数number 能被2整除，就可以判断number 是合数，否则，检测约数3、5、7、9…… number的平方根。</p>
             <p>
                 <pre>
-var v = 100;
-var arr = new Array();
-var arrRadix = [2, 8, 10, 16];
-for(i = 0; i &lt; arrRadix.length; i++){
-    //Number.toString(radix)
-    console.log(v + " radix(" + arrRadix[i] + ") = " + v.toString(arrRadix[i]));
-    arr.push(v.toString(arrRadix[i]))
-}
-
-for(i = 0; i &lt; arr.length; i++){
-    //parseInt(string, radix)
-    console.log(arr[i] + "raidx(" + arrRadix[i] + ") = " + parseInt(arr[i]) );
-}
-//阿拉伯语
-var txt = "";
-var start = 0x676;
-for(i = 0; i &lt; 100; i++){
-    var t = start + i;
-    txt += "&amp;#x0" + t.toString(16) + ";&nbsp;"
-}
-document.querySelector("#txt").innerHTML = txt;</pre>
+var isPrime = (number)=>{
+    if(number % 2 == 0){
+        return false;
+    }else{
+        for(var divisor = 3; divisor * divisor <= number;divisor+=2){
+            if(number % divisor == 0){
+                return false;
+            }
+        }
+        return true
+    }
+};</pre>
             </p>
-            <p id="txt"></p>
-            <script>
-                var v = 100;
-                var arr = new Array();
-                var arrRadix = [2, 8, 10, 16];
-                for(i = 0; i < arrRadix.length; i++){
-                    //Number.toString(radix)
-                    console.log(v + " radix(" + arrRadix[i] + ") = " + v.toString(arrRadix[i]));
-                    arr.push(v.toString(arrRadix[i]))
-                }
-                
-                for(i = 0; i < arr.length; i++){
-                    //parseInt(string, radix)
-                    console.log(arr[i] + "raidx(" + arrRadix[i] + ") = " + parseInt(arr[i]) );
-                }
-                //阿拉伯语
-                var txt = "";
-                var start = 0x676;
-                for(i = 0; i < 100; i++){
-                    var t = start + i;
-                    txt += "&#x0" + t.toString(16) + ";&nbsp;"
-                }
-                document.querySelector("#txt").innerHTML = txt;
-            </script>
         </div>
         <div class="col-md-12">
-          <h2>Python: 函数hex, oct, bin, int</h2>
-          <p>函数hex, oct, bin 是将数值转换成相应进制的字符串。</p>
-          <p>函数int 将字符串转换数值。<code>int(string, radix of string)</code></p>
+          <h2>2和3 的倍数改良版</h2>
+          <p>因数divisor从5开始，步长是6，divisor + 1，divisor + 3，divisor + 5 这些因数都是偶数，可以不用检测，divisor + 4 的通项可以表示成 5 + 4 + 6k = 9 + 6k，一定是3的倍数，所以只需要检测 divisor 和 divisor + 2 两个因数。</p>
+          <p>
+            <pre>
+var isPrime = (number)=>{
+    if(number <=3){
+        return number > 1;
+    }else if(number % 2 === 0 || number % 3 === 0){
+        return false;
+    }else{
+        for(var divisor = 5;divisor * divisor <= number; divisor += 6){
+            if(number % divisor === 0 || number % (divisor + 2) === 0){
+                return false;
+             }
+         }
+         return true;
+    }
+};</pre>
+          </p>
         </div>
         <div class="col-md-14">
             <h2>总结</h2>
